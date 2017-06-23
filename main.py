@@ -1,6 +1,3 @@
-###################### NOT A WORKING CODE YET ####################################
-
-
 import networkx as nx
 import numpy as np
 import os
@@ -22,23 +19,97 @@ def readGraph(graphName):
 def weight(community):
     #Input: a subgraph/community in the graph
     #Output: weight of the community (using the formula mentioned in the paper)
-    wght = (2* nx.number_of_edges(community))/nx.number_of_nodes(community)
-    return wght
+    if nx.number_of_nodes(community) == 0:
+        return 0
+    else:
+        wght = float((2* nx.number_of_edges(community))/nx.number_of_nodes(community))
+        return wght
 
 def orderNodes(graph):
     #Input: a networkx graph
     #Output: list of nodes sorted in the decreasing order of their page rank
     dictOfNodes = nx.pagerank(graph)
+    pr = dictOfNodes.items()
+    pr = sorted(pr, reverse=True, key=get_key)
+    return pr
 
+def get_key(l):
+    return l[1]
 
 def RaRe(graph):
     #Input: a networkx graph
     #Output: a group of clusters (initial guesses to be fed into the second algorithm)
     #Order the vertices using page rank
-    orderedNodes = orderedNodes(graph)
+    orderedNodes = orderNodes(graph)
+    C = []
+    for i in orderedNodes:
+        added = False
+        for c in C:
+            temp1 = graph.subgraph(c)
+            cc = list(c)
+            cc.append(i[0])
+            temp2 = graph.subgraph(cc)
+            if weight(temp2) > weight(temp1):
+                added = True
+                c.append(i[0])
+        if added == False:
+            C.append([i[0]])
+    return C
+
+def IS2(cluster, graph):
+    #Input: cluster to be improved and the networkx graph
+    #Output: improved cluster
+    C = graph.subgraph(cluster)
+    intialWeight = weight(C)
+    increased = True
+    while increased:
+        N = C
+        listOfNodes = cluster
+        for vertex in C.nodes():
+            #Get adjacent nodes
+            adjacentNodes = graph.neighbors(vertex)
+            #Adding all adjacent nodes to the cluster
+            for neighbor in adjacentNodes:
+                listOfNodes.append(neighbor)
+        N = graph.subgraph(listOfNodes)
+        for vertex in N.nodes():
+            #If the vertex was a part of inital cluster
+            if vertex in C.nodes():
+                #Remove vertex from the cluster
+                listOfNodes = C.nodes()
+                listOfNodes.remove(vertex)
+                CDash = graph.subgraph(listOfNodes)
+            #If the vertex is one of the recently added neighbours
+            else:
+                #Add vertex to the cluster
+                listOfNodes = C.nodes()
+                listOfNodes.append(vertex)
+                CDash = graph.subgraph(listOfNodes)
+            if weight(CDash) > weight(C):
+                C = CDash
+        newWeight = weight(C)
+        if newWeight == intialWeight:
+            increased = False
+        else:
+            intialWeight = newWeight
+    return C
+
 
 if __name__ == "__main__":
     #Read file and create a graph
     g = readGraph('amazon\\amazon.graph.medium')
     #Generate initial "guesses" for clusters using RaRe algorithm
     initalClusters = RaRe(g)
+    #Get final clusters using Improved Iterative Scan Algorithm
+    finalClusters = []
+    for cluster in initalClusters:
+        updatedCluster = IS2(cluster,g)
+        finalClusters.append(updatedCluster.nodes())
+    #Removing duplicate clusters and printing output to a file
+    f = open('amazon.graph.medium.clusters.txt', 'w')
+    finalClustersWithoutDuplicates = []
+    for cluster in finalClusters:
+        if cluster not in finalClustersWithoutDuplicates:
+            finalClustersWithoutDuplicates.append(cluster)
+            f.write("%s\n" % cluster)
+  
