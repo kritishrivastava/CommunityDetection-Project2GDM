@@ -22,7 +22,7 @@ def weight(community):
     if nx.number_of_nodes(community) == 0:
         return 0
     else:
-        wght = float((2* nx.number_of_edges(community))/nx.number_of_nodes(community))
+        wght = float(2* nx.number_of_edges(community))/float(nx.number_of_nodes(community))
         return wght
 
 def orderNodes(graph):
