@@ -66,15 +66,16 @@ def IS2(cluster, graph):
     intialWeight = weight(C)
     increased = True
     while increased:
-        N = C.copy()
+    #    N = C.copy()
         listOfNodes = cluster
         for vertex in C.nodes():
             #Get adjacent nodes
             adjacentNodes = graph.neighbors(vertex)
             #Adding all adjacent nodes to the cluster
-            listOfNodes = listOfNodes + adjacentNodes
-        N = graph.subgraph(listOfNodes)
-        for vertex in N.nodes():
+            #listOfNodes = listOfNodes + adjacentNodes
+            listOfNodes = list(set(listOfNodes).union(set(adjacentNodes)))
+    #    N = graph.subgraph(listOfNodes)
+        for vertex in listOfNodes:
             listOfNodes = list(C.nodes())
             #If the vertex was a part of inital cluster
             if vertex in C.nodes():
