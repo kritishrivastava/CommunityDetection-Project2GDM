@@ -1,8 +1,8 @@
 # Project 2: Overlapping Community Detection
 Project members:
-1. Manjusha
-2. Kriti
-3. Rachit
+1. Manjusha Trilochan Awasthi (mawasth)
+2. Kriti Shrivastava (kshriva)
+3. Rachit Thirani (rthiran)
 
 This is an implementation for the algorithm from the paper 1: Efficient Identification of Overlapping
 Communities?
