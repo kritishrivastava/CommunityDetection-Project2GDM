@@ -1,18 +1,4 @@
 # CommunityDetection-Project2GDM
-Points to be covered:
-
-
-Software that needs to be installed (if any) with URL’s to download and
-instructions to install them.
-○ Environment variable settings (if any) and OS it should/could run on.
-○ Instructions on how to run the program, with specific run command example that
-can be copy pasted.
-○ Instructions on how to interpret the results.
-○ Sample input and output files.
-○ Citations to any software you may have used or any dataset you may have tested
-your code on.
-
-
 This is an implementation for the algorithm from the paper 1: Efficient Identification of Overlapping
 Communities?
 
