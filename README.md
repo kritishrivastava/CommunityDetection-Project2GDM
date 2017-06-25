@@ -38,4 +38,4 @@ Datasets tested:
 
 1. amazon.medium.graph
 2. youtube.medium.graph
-3. dblp.small.graph
+3. dblp.medium.graph
