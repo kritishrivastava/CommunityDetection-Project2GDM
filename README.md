@@ -21,8 +21,9 @@ Python version used: Python 3.6.0
 OS used: Windows 10 64bit (RAM:16GB)
 
 Python libraries needed:
-Networkx: install using the command "pip install networkx" or follow the instructions mentioned here https://networkx.github.io/documentation/development/install.html
-Numpy: install using the command "pip install numpy" or follow the intructions mentioned here https://docs.scipy.org/doc/numpy/user/install.html
+
+1. Networkx: install using the command "pip install networkx" or follow the instructions mentioned here https://networkx.github.io/documentation/development/install.html
+2. Numpy: install using the command "pip install numpy" or follow the intructions mentioned here https://docs.scipy.org/doc/numpy/user/install.html
 
 Instructions to run the program:
 1. Go the the directory containing the python script.
@@ -43,6 +44,7 @@ ex.
 This output contains 2 communities. The first community contains 6 nodes and the second community contains 8 nodes.
 
 Datasets tested:
-amazon.medium.graph
-youtube.medium.graph
-dblp.small.graph
+
+1. amazon.medium.graph
+2. youtube.medium.graph
+3. dblp.small.graph
