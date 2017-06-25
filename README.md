@@ -1,4 +1,9 @@
-# CommunityDetection-Project2GDM
+# Project 2: Overlapping Community Detection
+Project members:
+1. Manjusha
+2. Kriti
+3. Rachit
+
 This is an implementation for the algorithm from the paper 1: Efficient Identification of Overlapping
 Communities?
 
