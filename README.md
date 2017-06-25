@@ -33,8 +33,11 @@ For the above input graph "amazon.graph.medium", the outfile file is amazon.grap
 
 The output file contains the list of communities identified for the graph given as input.
 Every line represents one community and it contains the list of nodes in that community.
+
 ex. 
+
 1917 1918 1919 1920 4906 4980 
 
 2099 2100 2101 2102 2104 2105 2789 3997 
+
 This output contains 2 communities. The first community contains 6 nodes and the second community contains 8 nodes.
