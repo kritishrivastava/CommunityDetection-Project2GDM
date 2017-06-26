@@ -1,3 +1,10 @@
+#Implementation for paper 1:Efficient Identification of Overlapping Communities?
+
+#Project Team Members:
+#1. Manjusha Trilochan Awasthi (mawasth)
+#2. Kriti Shrivastava (kshriva)
+#3. Rachit Thirani (rthiran)
+
 import networkx as nx
 import numpy as np
 import os
@@ -38,7 +45,7 @@ def get_key(node):
     #Output: return rank of the node
     return node[1]
 
-def RaRe(graph):
+def LA(graph):
     #Input: a networkx graph
     #Output: a group of clusters (initial guesses to be fed into the second algorithm)
     #Order the vertices using page rank
@@ -73,7 +80,6 @@ def IS2(cluster, graph):
             adjacentNodes = graph.neighbors(vertex)
             #Adding all adjacent nodes to the cluster
             listOfNodes = list(set(listOfNodes).union(set(adjacentNodes)))
-            #listOfNodes = listOfNodes + adjacentNodes
         for vertex in listOfNodes:
             listOfNodes = list(C.nodes())
             #If the vertex was a part of inital cluster
@@ -104,11 +110,11 @@ if __name__ == "__main__":
         filename = "dblp\\" + graphName
     else:
         filename = "youtube\\" + graphName
-    # Read file and create a graph
+    #Read file and create a graph
     g = readGraph(filename)
-    #Generate initial "guesses" for clusters using RaRe algorithm
-    initalClusters = RaRe(g)
-    # Get final clusters using Improved Iterative Scan Algorithm
+    #Generate initial "guesses" for clusters using Link Aggregate algorithm
+    initalClusters = LA(g)
+    #Get final clusters using Improved Iterative Scan Algorithm
     finalClusters = []
     initalClustersWithoutDuplicates = []
     for cluster in initalClusters:
@@ -125,6 +131,5 @@ if __name__ == "__main__":
         cluster = sorted(cluster)
         if cluster not in finalClustersWithoutDuplicates:
             finalClustersWithoutDuplicates.append(cluster)
-            for node in cluster:
-                f.write("%s " % node)
+            f.write(*cluster,sep=" ")
             f.write("\n")
